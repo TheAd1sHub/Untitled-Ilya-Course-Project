@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UntitledProject.Develop.DI
+namespace Assets.UntitledProject.Develop.DI
 {
 	public sealed class DIContainer
 	{
