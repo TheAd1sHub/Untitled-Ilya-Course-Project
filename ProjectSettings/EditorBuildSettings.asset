@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Untitled Ilya Course Project/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/UntitledProject/Scenes/Bootstrap.unity
+    guid: 3086176ec27b35948b8a314b19655348
+  - enabled: 1
+    path: Assets/UntitledProject/Scenes/Empty.unity
+    guid: 8258696d6555d4041b16fe1d6025ff3e
+  - enabled: 1
+    path: Assets/UntitledProject/Scenes/MainMenu.unity
+    guid: 36ff5b69a32bdd24999838b570ecc8dc
+  - enabled: 1
+    path: Assets/UntitledProject/Scenes/Gameplay.unity
+    guid: 2714ce404432702478afdf209ac7323a
   m_configObjects: {}
