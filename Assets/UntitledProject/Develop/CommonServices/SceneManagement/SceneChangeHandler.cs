@@ -102,7 +102,7 @@ namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 
 			_currentSceneContainer = new DIContainer(_projectContainer);
 
-			yield return bootstrap.Run(new InputMainMenuArgs());
+			yield return bootstrap.Run(_currentSceneContainer, new InputMainMenuArgs());
 
 			_loadingCurtain.Hide();
         }
