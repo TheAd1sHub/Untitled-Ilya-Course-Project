@@ -5,6 +5,7 @@ using Assets.UntitledProject.Develop.CommonServices.CoroutinesHandler;
 using Assets.UntitledProject.Develop.CommonServices.LoadingScreen;
 using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
 using System;
+using Assets.UntitledProject.Develop.CommonServices.DataManagement;
 
 namespace Assets.UntitledProject.Develop.EntryPoint
 {
@@ -62,6 +63,9 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 				)
 			);
 
+		private void RegisterSaveLoadService(DIContainer container)
+			=> container.RegisterAsSingle<ISaveLoadService>(container => new SaveLoadService(new JsonSerializer(), new LocalDataRepository()));
+
 		private void Awake()
 		{
 			SetupAppSettings();
@@ -75,6 +79,8 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			RegisterLoadingCurtain(projectContainer);
 			RegisterSceneLoader(projectContainer);
 			RegisterSceneChangeHandler(projectContainer);
+
+			RegisterSaveLoadService(projectContainer);
 
 			projectContainer.Resolve<ICoroutinesHandler>()
 				.StartRoutine(_gameBootstrap.Run(projectContainer));
