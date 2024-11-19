@@ -8,6 +8,6 @@ namespace Assets.UntitledProject.Develop.CommonServices.DataManagement
 	public interface IDataSerializer
 	{
 		public string Serialize<T>(T @object);
-		public T Desearialize<T>(string serializedObject);
+		public T Deserialize<T>(string serializedObject);
 	}
 }
