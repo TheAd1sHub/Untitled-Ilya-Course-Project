@@ -31,7 +31,7 @@ namespace Assets.UntitledProject.Develop.CommonServices.DataManagement
 			}
 
 			string serializedData = _repository.Read(key);
-			data = _serializer.Desearialize<TData>(serializedData);
+			data = _serializer.Deserialize<TData>(serializedData);
 			return true;
 		}
 	}
