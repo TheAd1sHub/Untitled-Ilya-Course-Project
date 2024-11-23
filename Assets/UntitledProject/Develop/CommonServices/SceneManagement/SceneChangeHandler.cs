@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 {
-	public class SceneChangeHandler
+	public sealed class SceneChangeHandler
 	{
 		private const string SceneTransitionErrorMessage = "This transition is impossible";
 
