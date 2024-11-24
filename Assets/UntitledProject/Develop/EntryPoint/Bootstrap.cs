@@ -3,6 +3,7 @@ using Assets.UntitledProject.Develop.DI;
 using System.Collections;
 using Assets.UntitledProject.Develop.CommonServices.LoadingScreen;
 using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
+using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
 
 namespace Assets.UntitledProject.Develop.EntryPoint
 {
@@ -19,6 +20,7 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			Debug.Log("Initializing services...");
 
 			// TODO: Initialize All the Data, Configs, Services, etc.
+			container.Resolve<PlayerDataProvider>().Load();
 
 			yield return null;
 

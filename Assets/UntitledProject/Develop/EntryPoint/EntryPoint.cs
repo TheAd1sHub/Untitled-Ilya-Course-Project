@@ -6,6 +6,8 @@ using Assets.UntitledProject.Develop.CommonServices.LoadingScreen;
 using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
 using System;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement;
+using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
+using Assets.UntitledProject.Develop.CommonServices.Wallet;
 
 namespace Assets.UntitledProject.Develop.EntryPoint
 {
@@ -66,6 +68,18 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 		private void RegisterSaveLoadService(DIContainer container)
 			=> container.RegisterAsSingle<ISaveLoadService>(container => new SaveLoadService(new JsonSerializer(), new LocalDataRepository()));
 
+		private void RegisterPlayerDataProvider(DIContainer container)
+		{
+			ISaveLoadService saveLoadService = container.Resolve<ISaveLoadService>();
+			container.RegisterAsSingle<PlayerDataProvider>(container => new PlayerDataProvider(saveLoadService));
+		}
+
+		private void RegisterWalletService(DIContainer container)
+		{
+			PlayerDataProvider playerDataProvider = container.Resolve<PlayerDataProvider>();
+			container.RegisterAsSingle(container => new WalletService(playerDataProvider)).NonLazy();
+		}
+
 		private void Awake()
 		{
 			SetupAppSettings();
@@ -81,6 +95,12 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			RegisterSceneChangeHandler(projectContainer);
 
 			RegisterSaveLoadService(projectContainer);
+			RegisterPlayerDataProvider(projectContainer);
+			RegisterWalletService(projectContainer);
+
+			// End of field
+
+			projectContainer.Initialize();
 
 			projectContainer.Resolve<ICoroutinesHandler>()
 				.StartRoutine(_gameBootstrap.Run(projectContainer));
