@@ -1,4 +1,5 @@
 ﻿
+using Assets.UntitledProject.Develop.CommonServices.Wallet;
 using System;
 using System.Collections.Generic;
 
@@ -7,7 +8,6 @@ namespace Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProvi
 	[Serializable]
 	public class PlayerData : ISaveData
 	{
-		public int Money;
-		public List<int> CompletedLevels;
+		public Dictionary<CurrencyType, int> WalletData = new();
 	}
 }
