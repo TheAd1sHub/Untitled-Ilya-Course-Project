@@ -70,8 +70,8 @@ namespace Assets.UntitledProject.Develop.DI
 
 		private T CreateInstanceFrom<T>(Registration registration)
 		{
-			if (registration.Instance == null && registration.Creator != null)
-				registration.Instance = registration.Creator(this);
+			if (registration.Instance == null && registration.Factory != null)
+				registration.Instance = registration.Factory(this);
 
 			return (T)registration.Instance;
 		}
@@ -82,16 +82,12 @@ namespace Assets.UntitledProject.Develop.DI
             public Registration(Func<DIContainer, object> factory) => Factory = factory;
 
 			public object Instance { get; set; }
-<<<<<<< Updated upstream
-			public Func<DIContainer, object> Creator { get; }
-=======
 			public Func<DIContainer, object> Factory { get; }
 
 			public bool IsNonLazy { get; private set; } = false;
 			
 			public void NonLazy() => IsNonLazy = true;
 			public void Lazy() => IsNonLazy = false;
->>>>>>> Stashed changes
         }
 	}
 }
