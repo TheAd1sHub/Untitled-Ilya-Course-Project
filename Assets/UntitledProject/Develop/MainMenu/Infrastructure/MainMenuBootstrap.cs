@@ -44,13 +44,6 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 				wallet.Add(CurrencyType.Gold, 1);
 				Debug.Log($"Gold in wallet: {wallet.GetCurrencyAmount(CurrencyType.Gold).Value}");
 			}
-				else
-				{
-					PlayerData defaultPlayerData = new PlayerData()
-					{
-						Money = 0,
-						CompletedLevels = new()
-					};
 
 			if (Input.GetKeyDown(KeyCode.S))
 			{
