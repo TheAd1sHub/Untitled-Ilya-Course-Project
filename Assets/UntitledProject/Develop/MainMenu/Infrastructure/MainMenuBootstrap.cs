@@ -1,6 +1,7 @@
 using Assets.UntitledProject.Develop.CommonServices.DataManagement;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
 using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
+using Assets.UntitledProject.Develop.CommonServices.Wallet;
 using Assets.UntitledProject.Develop.DI;
 using System.Collections;
 using UnityEditor;
@@ -26,6 +27,8 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 		private void ProcessRegistrations()
 		{
 			// ...
+
+			_container.Initialize();
 		}
 
 		private void Update()
@@ -35,17 +38,12 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 				_container.Resolve<SceneChangeHandler>().SwitchSceneFor(new OutputMainMenuArgs(new InputGameplayArgs(1)));
 			}
 
-			if (Input.GetKeyDown(KeyCode.S))
+			if (Input.GetKeyDown(KeyCode.F))
 			{
-				ISaveLoadService saveLoadService = _container.Resolve<ISaveLoadService>();
-
-                if (saveLoadService.TryLoad(out PlayerData playerData))
-                {
-					playerData.Money++;
-					playerData.CompletedLevels.Add(playerData.Money);
-
-					saveLoadService.Save(playerData);
-                }
+				WalletService wallet = _container.Resolve<WalletService>();
+				wallet.Add(CurrencyType.Gold, 1);
+				Debug.Log($"Gold in wallet: {wallet.GetCurrencyAmount(CurrencyType.Gold).Value}");
+			}
 				else
 				{
 					PlayerData defaultPlayerData = new PlayerData()
@@ -54,8 +52,10 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 						CompletedLevels = new()
 					};
 
-					saveLoadService.Save(defaultPlayerData);
-				}
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				PlayerDataProvider saveLoadService = _container.Resolve<PlayerDataProvider>();
+				saveLoadService.Save();
             }
 		}
 	}

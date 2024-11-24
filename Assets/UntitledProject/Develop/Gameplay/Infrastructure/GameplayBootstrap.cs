@@ -22,7 +22,9 @@ namespace Assets.UntitledProject.Develop.Gameplay.Infrastructure
 
 		private void ProcessRegistrations()
 		{
-	        // ...
+			// ...
+
+			_container.Initialize();
 		}
 	}
 }
