@@ -92,6 +92,8 @@ namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 		{
 			_loadingCurtain.Show();
 
+			_currentSceneContainer?.Dispose();
+
 			yield return _sceneLoader.LoadSceneAsync(SceneID.Empty);
 			yield return _sceneLoader.LoadSceneAsync(SceneID.MainMenu);
 
@@ -110,6 +112,8 @@ namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 		private IEnumerator ProcessSwitchToGameplayScene(InputGameplayArgs inputArgs)
 		{
 			_loadingCurtain.Show();
+
+			_currentSceneContainer?.Dispose();
 
 			yield return _sceneLoader.LoadSceneAsync(SceneID.Empty);
 			yield return _sceneLoader.LoadSceneAsync(SceneID.Gameplay);
