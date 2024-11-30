@@ -10,18 +10,29 @@ namespace Assets.UntitledProject.Develop.DI
 
 		private readonly DIContainer _parent;
 
-        public DIContainer() : this(parent: null) { }
-        public DIContainer(DIContainer parent) => _parent = parent;	
+		public DIContainer() : this(parent: null) { }
+		public DIContainer(DIContainer parent) => _parent = parent;
 
-        public Registration RegisterAsSingle<T>(Func<DIContainer, T> creator)
+		public Registration RegisterAsSingle<T>(Func<DIContainer, T> creator)
 		{
-			if (_container.ContainsKey(typeof(T)))
+			if (IsRegistered<T>())
 				throw new InvalidOperationException($"An object of type {typeof(T)} is already registered as Single");
 
 			Registration registration = new Registration(container => creator(container));
 			_container.Add(typeof(T), registration);
 
 			return registration;
+		}
+
+		public bool IsRegistered<T>()
+		{
+			if (_container.ContainsKey(typeof(T)))
+				return true;
+
+			if (_parent != null)
+				return _parent.IsRegistered<T>();
+
+			return false;
 		}
 
 		public T Resolve<T>()
