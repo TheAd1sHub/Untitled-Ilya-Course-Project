@@ -1,8 +1,10 @@
-﻿namespace Assets.UntitledProject.Develop.CommonServices.Wallet
+﻿using UnityEngine;
+
+namespace Assets.UntitledProject.Develop.CommonServices.Wallet
 {
 	public enum CurrencyType
 	{
-		None,
+		[InspectorName(null)] None,
 		Gold,
 		Diamond
 	}

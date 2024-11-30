@@ -8,6 +8,7 @@ using System;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
 using Assets.UntitledProject.Develop.CommonServices.Wallet;
+using Assets.UntitledProject.Develop.CommonServices.ConfigsManagement;
 
 namespace Assets.UntitledProject.Develop.EntryPoint
 {
@@ -71,13 +72,20 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 		private void RegisterPlayerDataProvider(DIContainer container)
 		{
 			ISaveLoadService saveLoadService = container.Resolve<ISaveLoadService>();
-			container.RegisterAsSingle<PlayerDataProvider>(container => new PlayerDataProvider(saveLoadService));
+			ConfigsProviderService configsProviderService = container.Resolve<ConfigsProviderService>();
+			container.RegisterAsSingle(container => new PlayerDataProvider(saveLoadService, configsProviderService));
 		}
 
 		private void RegisterWalletService(DIContainer container)
 		{
 			PlayerDataProvider playerDataProvider = container.Resolve<PlayerDataProvider>();
 			container.RegisterAsSingle(container => new WalletService(playerDataProvider)).NonLazy();
+		}
+		
+		private void RefisterConfigsProviderService(DIContainer container)
+		{
+			ResourcesAssetLoader assetLoader = container.Resolve<ResourcesAssetLoader>();
+			container.RegisterAsSingle(container => new ConfigsProviderService(assetLoader));
 		}
 
 		private void Awake()
@@ -94,10 +102,11 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			RegisterSceneLoader(projectContainer);
 			RegisterSceneChangeHandler(projectContainer);
 
+			RefisterConfigsProviderService(projectContainer);
+
 			RegisterSaveLoadService(projectContainer);
 			RegisterPlayerDataProvider(projectContainer);
 			RegisterWalletService(projectContainer);
-
 			// End of field
 
 			projectContainer.Initialize();

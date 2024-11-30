@@ -43,8 +43,6 @@ namespace Assets.UntitledProject.Develop.CommonServices.Wallet
 
 		public void ReadFrom(PlayerData data)
 		{
-			UnityEngine.Debug.Log(data.WalletData);
-
 			foreach (KeyValuePair<CurrencyType, int> currency in data.WalletData)
 			{
 				if (_currencies.ContainsKey(currency.Key))
