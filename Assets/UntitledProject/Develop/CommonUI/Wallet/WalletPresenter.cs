@@ -17,7 +17,10 @@ namespace Assets.UntitledProject.Develop.CommonUI.Wallet
 
 		private IconsWithTextListView _view;
 
-		public WalletPresenter(WalletService walletService, IconsWithTextListView view, WalletPresenterFactory factory)
+		public WalletPresenter(
+			WalletService walletService,
+			IconsWithTextListView view,
+			WalletPresenterFactory factory)
 		{
 			_walletService = walletService;
 			_view = view;
