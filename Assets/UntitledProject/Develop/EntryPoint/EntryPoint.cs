@@ -9,6 +9,7 @@ using Assets.UntitledProject.Develop.CommonServices.DataManagement;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
 using Assets.UntitledProject.Develop.CommonServices.Wallet;
 using Assets.UntitledProject.Develop.CommonServices.ConfigsManagement;
+using Assets.UntitledProject.Develop.CommonServices.LevelsManagement;
 
 namespace Assets.UntitledProject.Develop.EntryPoint
 {
@@ -82,10 +83,16 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			container.RegisterAsSingle(container => new WalletService(playerDataProvider)).NonLazy();
 		}
 		
-		private void RefisterConfigsProviderService(DIContainer container)
+		private void RegisterConfigsProviderService(DIContainer container)
 		{
 			ResourcesAssetLoader assetLoader = container.Resolve<ResourcesAssetLoader>();
 			container.RegisterAsSingle(container => new ConfigsProviderService(assetLoader));
+		}
+
+		private void RegisterCompletedLevelsService(DIContainer container)
+		{
+			PlayerDataProvider playerDataProvider = container.Resolve<PlayerDataProvider>();
+			container.RegisterAsSingle(container => new CompletedLevelsService(playerDataProvider));
 		}
 
 		private void Awake()
@@ -102,11 +109,13 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 			RegisterSceneLoader(projectContainer);
 			RegisterSceneChangeHandler(projectContainer);
 
-			RefisterConfigsProviderService(projectContainer);
+			RegisterConfigsProviderService(projectContainer);
 
 			RegisterSaveLoadService(projectContainer);
 			RegisterPlayerDataProvider(projectContainer);
 			RegisterWalletService(projectContainer);
+
+			RegisterCompletedLevelsService(projectContainer);
 			// End of field
 
 			projectContainer.Initialize();
