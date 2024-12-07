@@ -21,7 +21,8 @@ namespace Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProvi
 		{
 			return new PlayerData()
 			{
-				WalletData = GetInitialWalletData()
+				WalletData = GetInitialWalletData(),
+				CompletedLevels = new List<int>()
 			};
 		}
 

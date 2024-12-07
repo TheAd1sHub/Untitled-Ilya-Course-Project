@@ -9,5 +9,6 @@ namespace Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProvi
 	public class PlayerData : ISaveData
 	{
 		public Dictionary<CurrencyType, int> WalletData = new();
+		public List<int> CompletedLevels = new();
 	}
 }
