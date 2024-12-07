@@ -1,8 +1,11 @@
+using Assets.UntitledProject.Develop.CommonServices.AssetsManagement;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement;
 using Assets.UntitledProject.Develop.CommonServices.DataManagement.DataProviders;
 using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
 using Assets.UntitledProject.Develop.CommonServices.Wallet;
+using Assets.UntitledProject.Develop.CommonUI.Wallet;
 using Assets.UntitledProject.Develop.DI;
+using Assets.UntitledProject.Develop.MainMenu.UI;
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
@@ -26,11 +29,28 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 
 		private void ProcessRegistrations()
 		{
-			// ...
+			_container.RegisterAsSingle(container => new WalletPresenterFactory(container));
+
+			_container.RegisterAsSingle(container =>
+			{
+				ResourcesAssetLoader resourcesAssetLoader = container.Resolve<ResourcesAssetLoader>();
+				MainMenuUIRoot mainMenuUIRootPrefab = resourcesAssetLoader.LoadResource<MainMenuUIRoot>(MainMenuAssetPaths.UIRootPath);
+
+				return Instantiate(mainMenuUIRootPrefab);
+			}).NonLazy();
+
+			_container.RegisterAsSingle(container =>
+			{
+				WalletPresenterFactory factory = container.Resolve<WalletPresenterFactory>();
+				MainMenuUIRoot mainMenuUIRoot = container.Resolve<MainMenuUIRoot>();
+
+				return factory.CreateWalletPresenter(mainMenuUIRoot.WalletView);
+			}).NonLazy();
 
 			_container.Initialize();
 		}
 
+#if UNITY_EDITOR // In case I forget to remove this debug logic from the final build
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Space))
@@ -51,5 +71,6 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 				saveLoadService.Save();
             }
 		}
+#endif
 	}
 }
