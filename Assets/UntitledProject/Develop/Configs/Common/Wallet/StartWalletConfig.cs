@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.UntitledProject.Develop.Configs.Common.Wallet
 {
-	[CreateAssetMenu(menuName = "Configs/Common/Wallet", fileName = "StartWalletConfig")]
+	[CreateAssetMenu(menuName = "Configs/Common/Wallet/NewStartWalletConfig", fileName = "StartWalletConfig")]
 	public sealed class StartWalletConfig : ScriptableObject
 	{
 		[SerializeField] private List<CurrencyConfig> _values;
