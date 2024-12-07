@@ -5,6 +5,7 @@ using Assets.UntitledProject.Develop.CommonServices.SceneManagement;
 using Assets.UntitledProject.Develop.CommonServices.Wallet;
 using Assets.UntitledProject.Develop.CommonUI.Wallet;
 using Assets.UntitledProject.Develop.DI;
+using Assets.UntitledProject.Develop.MainMenu.LevelsMenuFeature.LevelsMenuPopup;
 using Assets.UntitledProject.Develop.MainMenu.UI;
 using System.Collections;
 using UnityEditor;
@@ -24,11 +25,25 @@ namespace Assets.UntitledProject.Develop.MainMenu.Infrastructure
 
 			ProcessRegistrations();
 
+			InitializeUI();
+
 			yield return new WaitForSeconds(1.0f); // TODO: Replace with real awaiting 
+		}
+
+		private void InitializeUI()
+		{
+			MainMenuUIRoot mainMenuUIRoot = _container.Resolve<MainMenuUIRoot>();
+
+			mainMenuUIRoot.OpenLevelsMenuButton.Initialize(() =>
+			{
+				LevelsMenuPopupPresenter levelsMenuPopupPresenter = _container.Resolve<LevelsMenuPopupFactory>().CreateLevelsMenuPopupPresenter();
+				levelsMenuPopupPresenter.Enable();
+			});
 		}
 
 		private void ProcessRegistrations()
 		{
+			_container.RegisterAsSingle(container => new LevelsMenuPopupFactory(container));
 			_container.RegisterAsSingle(container => new WalletPresenterFactory(container));
 
 			_container.RegisterAsSingle(container =>
