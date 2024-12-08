@@ -5,6 +5,7 @@ using Assets.UntitledProject.Develop.Gameplay.Infrastructure;
 using Assets.UntitledProject.Develop.MainMenu.Infrastructure;
 using System;
 using System.Collections;
+using UnityEngine;
 
 namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 {
@@ -55,6 +56,10 @@ namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 			{
 				case InputMainMenuArgs inputArgs:
 					yield return ProcessSwitchToMainMenuScene(inputArgs);
+					break;
+
+				case InputGameplayArgs inputArgs:
+					yield return ProcessSwitchToGameplayScene(inputArgs);
 					break;
 
 				default:
@@ -126,6 +131,7 @@ namespace Assets.UntitledProject.Develop.CommonServices.SceneManagement
 			_currentSceneContainer = new DIContainer(_projectContainer);
 
 			yield return bootstrap.Run(_currentSceneContainer, inputArgs);
+			Debug.Log(bootstrap);
 
 			_loadingCurtain.Hide();
 		}
