@@ -31,6 +31,7 @@ namespace Assets.UntitledProject.Develop.EntryPoint
 
 			Debug.Log("Initialization finished; Opening the next scene.");
 
+			//IInputSceneArgs inputMenuArgs = new InputGameplayArgs(1);
 			IInputSceneArgs inputMenuArgs = new InputMainMenuArgs();
 			sceneChanger.SwitchSceneFor(new OutputBootstrapArgs(inputMenuArgs));
 		}
