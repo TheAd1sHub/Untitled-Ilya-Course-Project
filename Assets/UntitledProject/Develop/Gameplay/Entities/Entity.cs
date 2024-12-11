@@ -80,6 +80,22 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities
 			IsInitialized = true;
 		}
 
+		private void Install()
+		{
+			MonoEntityRegistrar[] registrars = GetComponents<MonoEntityRegistrar>();
+
+			if (registrars != null)
+			{
+				foreach (MonoEntityRegistrar registrar in registrars)
+					registrar.Register(this);
+			}	
+		}
+
+		private void Awake()
+		{
+			Install();
+		}
+
 		private void Update()
 		{
 			if (IsInitialized == false)
