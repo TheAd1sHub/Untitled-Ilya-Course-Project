@@ -17,8 +17,7 @@ namespace Assets.UntitledProject.Develop.Gameplay
 
 			_ghost = _container.Resolve<EntityFactory>().CreateGhost(Vector3.zero);
 
-			_ghost.TryGetValue(EntityValue.MoveSpeed, out ReactiveVariable<float> moveSpeed);
-			Debug.Log($"Ghost' speed: {moveSpeed.Value}");
+			Debug.Log($"Ghost' speed: {_ghost.GetMoveSpeed().Value}");
 		}
 
 		private void Update()
@@ -27,11 +26,8 @@ namespace Assets.UntitledProject.Develop.Gameplay
 
 			if (_ghost != null)
 			{
-				_ghost.TryGetValue(EntityValue.MoveDirection, out ReactiveVariable<Vector3> moveDirection);
-				_ghost.TryGetValue(EntityValue.RotationDirection, out ReactiveVariable<Vector3> rotationDirection);
-
-				moveDirection.Value = input;
-				rotationDirection.Value = input;
+				_ghost.GetMoveDirection().Value = input;
+				_ghost.GetRotationDirection().Value = input;
 			}
 		}
 	}
