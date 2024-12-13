@@ -1,6 +1,7 @@
 ﻿using Assets.UntitledProject.Develop.CommonServices.AssetsManagement;
 using Assets.UntitledProject.Develop.DI;
 using Assets.UntitledProject.Develop.Gameplay.Features.MovementFeature;
+using Assets.UntitledProject.Develop.Utils.Extensions;
 using Assets.UntitledProject.Develop.Utils.Reactive;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -24,12 +25,10 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities
 			Entity instance = Object.Instantiate(prefab, position, Quaternion.identity);
 
 			instance
-				.AddValue(EntityValue.MoveDirection, new ReactiveVariable<Vector3>())
-				.AddValue(EntityValue.MoveSpeed, new ReactiveVariable<float>(10))
-				.AddValue(EntityValue.RotationDirection, new ReactiveVariable<Vector3>())
-				.AddValue(EntityValue.RotationSpeed, new ReactiveVariable<float>(900))
-				.AddValue(EntityValue.Transform, instance.transform) // TODO: Get transform in a more sane way
-				.AddValue(EntityValue.CharacterController, instance.GetComponent<CharacterController>());
+				.AddMoveDirection()
+				.AddMoveSpeed(new ReactiveVariable<float>(10))
+				.AddRotationDirection()
+				.AddRotationSpeed(new ReactiveVariable<float>(900));
 
 			instance
 				.AddBehavior(new CharacterControllerMovementBehavior())
