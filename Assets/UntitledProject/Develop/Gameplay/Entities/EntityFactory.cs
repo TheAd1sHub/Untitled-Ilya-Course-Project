@@ -1,5 +1,6 @@
 ﻿using Assets.UntitledProject.Develop.CommonServices.AssetsManagement;
 using Assets.UntitledProject.Develop.DI;
+using Assets.UntitledProject.Develop.Gameplay.Features.DeathFeature;
 using Assets.UntitledProject.Develop.Gameplay.Features.MovementFeature;
 using Assets.UntitledProject.Develop.Utils.Extensions;
 using Assets.UntitledProject.Develop.Utils.Reactive;
@@ -28,11 +29,15 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities
 				.AddMoveDirection()
 				.AddMoveSpeed(new ReactiveVariable<float>(10))
 				.AddRotationDirection()
-				.AddRotationSpeed(new ReactiveVariable<float>(900));
+				.AddRotationSpeed(new ReactiveVariable<float>(900))
+				.AddHealth(new ReactiveVariable<float>(400))
+				.AddMaxHealth(new ReactiveVariable<float>(400))
+				.AddIsDead();
 
 			instance
 				.AddBehavior(new CharacterControllerMovementBehavior())
-				.AddBehavior(new RotationBehavior());
+				.AddBehavior(new RotationBehavior())
+				.AddBehavior(new DeathBehavior());
 
 			instance.Initialize();
 

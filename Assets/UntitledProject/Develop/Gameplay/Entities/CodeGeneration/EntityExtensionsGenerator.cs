@@ -20,9 +20,14 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities.CodeGeneration
 
 			{EntityValue.Transform, typeof(Transform)},
 			{EntityValue.CharacterController, typeof(CharacterController)},
+
+			{EntityValue.Health, typeof(ReactiveVariable<float>)},
+			{EntityValue.MaxHealth, typeof(ReactiveVariable<float>)},
+
+			{EntityValue.IsDead, typeof(ReactiveVariable<bool>)},
 		};
 
-		//[InitializeOnLoadMethod]
+		[InitializeOnLoadMethod]
 		[MenuItem("Tools/ECS/Generate Entity Extensions")]
 		private static void Generate()
 		{

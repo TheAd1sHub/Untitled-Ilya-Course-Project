@@ -17,7 +17,7 @@ namespace Assets.UntitledProject.Develop.Gameplay
 
 			_ghost = _container.Resolve<EntityFactory>().CreateGhost(Vector3.zero);
 
-			Debug.Log($"Ghost' speed: {_ghost.GetMoveSpeed().Value}");
+			Debug.Log($"Ghost's speed: {_ghost.GetMoveSpeed().Value}");
 		}
 
 		private void Update()
@@ -28,6 +28,12 @@ namespace Assets.UntitledProject.Develop.Gameplay
 			{
 				_ghost.GetMoveDirection().Value = input;
 				_ghost.GetRotationDirection().Value = input;
+
+				if (Input.GetKeyDown(KeyCode.F) && _ghost.TryGetHealth(out ReactiveVariable<float> health))
+				{
+					health.Value -= 100;
+					Debug.Log($"Health: {health.Value}");
+				}
 			}
 		}
 	}

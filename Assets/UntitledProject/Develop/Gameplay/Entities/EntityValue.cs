@@ -7,7 +7,13 @@
 
 		RotationDirection,
 		RotationSpeed,
+
 		Transform,
-		CharacterController
+		CharacterController,
+
+		Health,
+		MaxHealth,
+
+		IsDead,
 	}
 }
