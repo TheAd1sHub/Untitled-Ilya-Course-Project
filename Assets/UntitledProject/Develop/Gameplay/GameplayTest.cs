@@ -29,10 +29,10 @@ namespace Assets.UntitledProject.Develop.Gameplay
 				_ghost.GetMoveDirection().Value = input;
 				_ghost.GetRotationDirection().Value = input;
 
-				if (Input.GetKeyDown(KeyCode.F) && _ghost.TryGetHealth(out ReactiveVariable<float> health))
+				if (Input.GetKeyDown(KeyCode.F) && _ghost.TryGetTakeDamageRequest(out ReactiveEvent<float> takeDamageRequest))
 				{
-					health.Value -= 100;
-					Debug.Log($"Health: {health.Value}");
+					takeDamageRequest.Invoke(100);
+					Debug.Log($"Health: {_ghost.GetHealth().Value}");
 				}
 			}
 		}

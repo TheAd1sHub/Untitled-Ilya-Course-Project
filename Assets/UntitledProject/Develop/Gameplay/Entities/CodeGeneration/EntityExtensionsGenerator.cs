@@ -1,4 +1,5 @@
-﻿using Assets.UntitledProject.Develop.Utils.Reactive;
+﻿using Assets.UntitledProject.Develop.Utils.Conditions;
+using Assets.UntitledProject.Develop.Utils.Reactive;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,9 +15,11 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities.CodeGeneration
 		{
 			{EntityValue.MoveSpeed, typeof(ReactiveVariable<float>)},
 			{EntityValue.MoveDirection, typeof(ReactiveVariable<Vector3>)},
+			{EntityValue.MoveCondition, typeof(ICompositeCondition)},
 
 			{EntityValue.RotationSpeed, typeof(ReactiveVariable<float>)},
 			{EntityValue.RotationDirection, typeof(ReactiveVariable<Vector3>)},
+			{EntityValue.RotationCondition, typeof(ICompositeCondition)},
 
 			{EntityValue.Transform, typeof(Transform)},
 			{EntityValue.CharacterController, typeof(CharacterController)},
@@ -24,7 +27,13 @@ namespace Assets.UntitledProject.Develop.Gameplay.Entities.CodeGeneration
 			{EntityValue.Health, typeof(ReactiveVariable<float>)},
 			{EntityValue.MaxHealth, typeof(ReactiveVariable<float>)},
 
+			{EntityValue.TakeDamageRequest, typeof(ReactiveEvent<float>)},
+			{EntityValue.TakeDamageEvent, typeof(ReactiveEvent<float>)},
+			{EntityValue.TakeDamageCondition, typeof(ICompositeCondition)},
+
 			{EntityValue.IsDead, typeof(ReactiveVariable<bool>)},
+			{EntityValue.DeathCondition, typeof(ICompositeCondition)},
+			{EntityValue.SelfDestroyCondition, typeof(ICompositeCondition)},
 		};
 
 		[InitializeOnLoadMethod]

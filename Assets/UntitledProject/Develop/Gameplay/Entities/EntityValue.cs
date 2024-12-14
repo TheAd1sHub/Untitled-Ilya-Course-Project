@@ -4,9 +4,11 @@
 	{
 		MoveDirection,
 		MoveSpeed,
+		MoveCondition,
 
 		RotationDirection,
 		RotationSpeed,
+		RotationCondition,
 
 		Transform,
 		CharacterController,
@@ -14,6 +16,12 @@
 		Health,
 		MaxHealth,
 
+		TakeDamageRequest,
+		TakeDamageEvent,
+		TakeDamageCondition,
+
 		IsDead,
+		DeathCondition,
+		SelfDestroyCondition,
 	}
 }
