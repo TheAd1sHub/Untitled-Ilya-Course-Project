@@ -13,12 +13,12 @@ namespace Assets.UntitledProject.Develop.DI
 		public DIContainer() : this(parent: null) { }
 		public DIContainer(DIContainer parent) => _parent = parent;
 
-		public Registration RegisterAsSingle<T>(Func<DIContainer, T> creator)
+		public Registration RegisterAsSingle<T>(Func<DIContainer, T> factory)
 		{
 			if (IsRegistered<T>())
 				throw new InvalidOperationException($"An object of type {typeof(T)} is already registered as Single");
 
-			Registration registration = new Registration(container => creator(container));
+			Registration registration = new Registration(container => factory(container));
 			_container.Add(typeof(T), registration);
 
 			return registration;
